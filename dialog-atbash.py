@@ -1,4 +1,5 @@
 from customtkinter import * 
+from tkinter import 
 
 root = CTk()
 root.title("Шифр Атбаш")
