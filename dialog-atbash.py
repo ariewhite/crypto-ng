@@ -14,6 +14,7 @@ set_appearance_mode('dark')
 default_font = CTkFont(family='Cascadia Code', size=14)
 default_font_16 = CTkFont(family='Cascadia Code', size=16)
 default_font_italic = CTkFont(family='Cascadia Code Italic', size=14)
+default_font_italic_ul = CTkFont(family='Cascadia Code Italic', size=14, underline=True)
 main_font = CTkFont(family='Anta', size=20)
 
 
@@ -26,8 +27,7 @@ def copy_to_clipboard(value : tk.Text):
         text = bytes(text, 'utf-8').translate(None, b'\n').decode()     
         root.clipboard_append(text)
     except:
-        pass
-    
+        pass    
 
 def delete_value(value : tk.Text):
     try:
@@ -56,6 +56,23 @@ def decrypt(*args):
         abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
     
     encypter_entry.insert(0.0, s)
+
+def insert_alp(*args, alp : CTkEntry, lng : int):
+
+    print('durak')
+
+    alp.delete(0, "end")
+
+    if lng == 0:
+        alp.insert(string='абвгдеёжзийклмнопрстуфхцчшщъыьэюя', index=0)
+    elif lng == 1: 
+        alp.insert(string='abcdefghijklmnopqrstuvwxyz', index=0)
+    elif lng == 2:
+        alp.insert(string='abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя',
+                   index=0)
+    else: 
+        pass 
+    
 
 
 ################                RESOURCES                    #####################
@@ -143,6 +160,36 @@ del_denc_btn = CTkButton(master=root, width=33, height=33,
                        command=lambda: delete_value(dencypter_entry))
 
 del_denc_btn.place(y=295, x=370)
+
+
+select_alhabet_cyr = CTkButton(master=root, width=10, height=14,
+                           bg_color='transparent',
+                           fg_color='transparent',
+                           text_color='#E3D7FF', text='rus', 
+                           font=default_font_italic_ul,
+                           command=lambda: insert_alp(alp=alhabet_entry, lng=0))
+
+select_alhabet_cyr.place(x=293, y=54)
+
+
+select_alhabet_eng = CTkButton(master=root, width=10, height=14,
+                           bg_color='transparent',
+                           fg_color='transparent',
+                           text_color='#E3D7FF', text='eng', 
+                           font=default_font_italic_ul,
+                           command=lambda: insert_alp(alp=alhabet_entry, lng=1))
+
+select_alhabet_eng.place(x=333, y=54)
+
+
+select_alhabet_both = CTkButton(master=root, width=10, height=14,
+                           bg_color='transparent',
+                           fg_color='transparent',
+                           text_color='#E3D7FF', text='both', 
+                           font=default_font_italic_ul,
+                           command=lambda: insert_alp(alp=alhabet_entry, lng=2))
+
+select_alhabet_both.place(x=373, y=54)
 
 
 root.mainloop()
