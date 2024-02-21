@@ -24,27 +24,32 @@ def delete_value(value : tk.Text):
         print(f'error to delete VALUE-{value}')
 
 def encrypt(*args):
-    abc = alhabet_entry.get(0.0, 'end')
+    dencypter_entry.delete(0.0, 'end')
+    abc = alhabet_entry.get()
+    
     s = encypter_entry.get(0.0, 'end')
+
+    print(s, 'end')
+    
     s = s.translate(str.maketrans(
         abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
+    
+    print(s, 'end')
+
     dencypter_entry.insert(0.0, s)
 
 def decrypt(*args):
     encypter_entry.delete(0.0, 'end')
-    value = dencypter_entry.get(0.0, 'end')
-    temp=""
-    for i in range(len(value)):
-        if value[i]!=" " and value[i]!='\n'and value[i]!="\t":
-            if ord(value[i]) in range(97,123):
-                temp += chr(96 + 26-(ord(value[i])-97))
-            elif ord(value[i]) in range(65,91):
-                temp += chr(64 + 26-(ord(value[i])-65))
-            else:
-                temp += value[i]
-        else:
-            temp += value[i]
-    encypter_entry.insert(0.0, temp)
+    abc = alhabet_entry.get()
+    
+    s = dencypter_entry.get(0.0, 'end')
+    
+    s = s.translate(str.maketrans(
+        abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
+    
+    print(s)
+
+    encypter_entry.insert(0.0, s)
 
 
 ################                RESOURCES                    #####################
@@ -110,6 +115,22 @@ del_enc_btn = CTkButton(master=root, width=33, height=33,
                        command=lambda: delete_value(encypter_entry))
 
 del_enc_btn.place(y=155, x=370)
+
+
+cp_denc_btn = CTkButton(master=root, width=33, height=33,
+                       corner_radius=5, bg_color='transparent',
+                       fg_color='transparent', image=cp_btn_img, text='',
+                       command=lambda: copy_to_clipboard(dencypter_entry))
+
+cp_denc_btn.place(y=250, x=370)
+
+
+del_denc_btn = CTkButton(master=root, width=33, height=33,
+                       corner_radius=5, bg_color='transparent',
+                       fg_color='transparent', image=del_btn_img, text='',
+                       command=lambda: delete_value(dencypter_entry))
+
+del_denc_btn.place(y=295, x=370)
 
 
 root.mainloop()
