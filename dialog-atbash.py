@@ -5,7 +5,7 @@ from PIL import Image
 
 root = CTk()
 root.title("Шифр Атбаш")
-root.geometry('430x385')
+root.geometry('430x400')
 
 
 ################                FUNCTIONS                    #####################
@@ -24,20 +24,11 @@ def delete_value(value : tk.Text):
         print(f'error to delete VALUE-{value}')
 
 def encrypt(*args):
-    dencypter_entry.delete(0.0, 'end')
-    value = encypter_entry.get(0.0, 'end')
-    temp = ""
-    for i in range(len(value)):
-        if value[i]!=" " and value[i]!='\n' and value[i]!="\t":
-            if ord(value[i]) in range(97,123):
-                temp += chr(96 + 26-(ord(value[i])-97))
-            elif ord(value[i]) in range(65,91):
-                temp += chr(64 + 26-(ord(value[i])-65))
-            else:
-                temp += value[i]
-        else:
-            temp += value[i]
-    dencypter_entry.insert(0.0, temp)
+    abc = alhabet_entry.get(0.0, 'end')
+    s = encypter_entry.get(0.0, 'end')
+    s = s.translate(str.maketrans(
+        abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
+    dencypter_entry.insert(0.0, s)
 
 def decrypt(*args):
     encypter_entry.delete(0.0, 'end')
@@ -65,11 +56,18 @@ del_btn_img = CTkImage(dark_image=Image.open(r'C:\Users\ariew\Projects\atbash-ng
 
 
 ################                MAIN - LABEL                 #####################
-main_lable = CTkLabel(root, width=410, height=80, corner_radius=0, bg_color='transparent',
+main_lable = CTkLabel(root, width=410, height=40, corner_radius=0, bg_color='transparent',
                       fg_color='#7A89C2', text_color='#E3D7FF', text='Atbash cipher',
                       anchor='center')
 
 main_lable.place(x=10, y=10)
+
+alhabet_label = CTkLabel(master=root, width=300, height=20, corner_radius=0,
+                         bg_color='transparent', fg_color='transparent',
+                         text_color='#BFD5E2', anchor='w',
+                         text='Alpabet')
+
+alhabet_label.place(x=10, y=60)
 
 
 ################                ENTRY'S                      #####################
@@ -87,6 +85,14 @@ dencypter_entry = tx(master=root, foreground='white',
 
 dencypter_entry.place(x=10, y=250)
 dencypter_entry.bind('<Any-KeyRelease>', decrypt)
+
+alhabet_entry = CTkEntry(master=root, width=410, height=20,
+                        corner_radius=5, bg_color='transparent',
+                        fg_color='#B2ABBF', text_color='#C7EBF0',
+                        state='normal')
+
+alhabet_entry.place(x=10, y=80)
+alhabet_entry.insert(string='абвгдеёжзийклмнопрстуфхцчшщъыьэюя', index=0)
 
 
 ################                BUTTONS'S                    #####################
