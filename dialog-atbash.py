@@ -20,17 +20,20 @@ main_font = CTkFont(family='Anta', size=20)
 ################                FUNCTIONS                    #####################
 def copy_to_clipboard(value : tk.Text):
     root.clipboard_clear()
+    
     try: 
-        text = value.get("1.0", tk.END)
+        text = value.get("1.0", tk.END)      
+        text = bytes(text, 'utf-8').translate(None, b'\n').decode()     
         root.clipboard_append(text)
     except:
-        print(f'error to append {value} to clipboard')
+        pass
+    
 
 def delete_value(value : tk.Text):
     try:
         value.delete("1.0", tk.END)
     except:
-        print(f'error to delete VALUE-{value}')
+        pass
 
 def encrypt(*args):
     dencypter_entry.delete(0.0, 'end')
@@ -41,7 +44,6 @@ def encrypt(*args):
     s = s.translate(str.maketrans(
         abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
     
-
     dencypter_entry.insert(0.0, s)
 
 def decrypt(*args):
@@ -53,7 +55,6 @@ def decrypt(*args):
     s = s.translate(str.maketrans(
         abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
     
-
     encypter_entry.insert(0.0, s)
 
 
