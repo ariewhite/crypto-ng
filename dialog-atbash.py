@@ -7,7 +7,7 @@ root = CTk()
 ################                CONFIGURATION                 ####################
 root.title("Шифр Атбаш")
 root.geometry('430x400')
-root.iconbitmap(bitmap=r'C:\Users\ariew\Projects\atbash-ng\source\ico.ico')
+root.iconbitmap(bitmap=r'source\ico.ico')
 
 set_appearance_mode('dark')
 
@@ -36,30 +36,28 @@ def delete_value(value : tk.Text):
         pass
 
 def encrypt(*args):
-    dencypter_entry.delete(0.0, 'end')
+    decrypter_entry.delete(0.0, 'end')
     abc = alhabet_entry.get()
     
-    s = encypter_entry.get(0.0, 'end')
+    value = encrypter_entry.get(0.0, 'end')
     
-    s = s.translate(str.maketrans(
+    value = value.translate(str.maketrans(
         abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
     
-    dencypter_entry.insert(0.0, s)
+    decrypter_entry.insert(0.0, value)
 
 def decrypt(*args):
-    encypter_entry.delete(0.0, 'end')
+    encrypter_entry.delete(0.0, 'end')
     abc = alhabet_entry.get()
     
-    s = dencypter_entry.get(0.0, 'end')
+    value = decrypter_entry.get(0.0, 'end')
     
-    s = s.translate(str.maketrans(
+    value = value.translate(str.maketrans(
         abc + abc.upper(), abc[::-1] + abc.upper()[::-1]))
     
-    encypter_entry.insert(0.0, s)
+    encrypter_entry.insert(0.0, value)
 
 def insert_alp(*args, alp : CTkEntry, lng : int):
-
-    print('durak')
 
     alp.delete(0, "end")
 
@@ -76,16 +74,16 @@ def insert_alp(*args, alp : CTkEntry, lng : int):
 
 
 ################                RESOURCES                    #####################
-cp_btn_img = CTkImage(dark_image=Image.open(r'C:\Users\ariew\Projects\atbash-ng\source\cp_btn.png'),
+cp_btn_img = CTkImage(dark_image=Image.open(r'source\cp_btn.png'),
                  size=(33, 33))
 
-del_btn_img = CTkImage(dark_image=Image.open(r'C:\Users\ariew\Projects\atbash-ng\source\del_btn.png'),
+del_btn_img = CTkImage(dark_image=Image.open(r'source\del_btn.png'),
                        size=(33, 33))
 
-cp_btn_img_d = CTkImage(dark_image=Image.open(r'C:\Users\ariew\Projects\atbash-ng\source\cp_btn_d.png'),
+cp_btn_img_d = CTkImage(dark_image=Image.open(r'source\cp_btn_d.png'),
                         size=(33, 33))
 
-del_btn_img_d = CTkImage(dark_image=Image.open(r'C:\Users\ariew\Projects\atbash-ng\source\del_btn_d.png'),
+del_btn_img_d = CTkImage(dark_image=Image.open(r'source\del_btn_d.png'),
                         size=(33, 33))
 
 
@@ -105,20 +103,20 @@ alhabet_label.place(x=10, y=59)
 
 
 ################                ENTRY'S                      #####################
-encypter_entry = tx(master=root, foreground='white', 
+encrypter_entry = tx(master=root, foreground='white', 
                     width=44, height=7,
                     background='#283F3B', font=default_font)
 
-encypter_entry.place(x=10, y=110)
-encypter_entry.bind('<Any-KeyRelease>', encrypt)
+encrypter_entry.place(x=10, y=110)
+encrypter_entry.bind('<Any-KeyRelease>', encrypt)
 
 
-dencypter_entry = tx(master=root, foreground='white', 
+decrypter_entry = tx(master=root, foreground='white', 
                     width=44, height=7,
                     background='#22223B', font=default_font)
 
-dencypter_entry.place(x=10, y=250)
-dencypter_entry.bind('<Any-KeyRelease>', decrypt)
+decrypter_entry.place(x=10, y=250)
+decrypter_entry.bind('<Any-KeyRelease>', decrypt)
 
 alhabet_entry = CTkEntry(master=root, width=410, height=20,
                         corner_radius=5, bg_color='transparent',
@@ -133,7 +131,7 @@ alhabet_entry.insert(string='абвгдеёжзийклмнопрстуфхцч�
 cp_enc_btn = CTkButton(master=root, width=33, height=33,
                        corner_radius=5, bg_color='transparent',
                        fg_color='transparent', image=cp_btn_img, text='',
-                       command=lambda: copy_to_clipboard(encypter_entry))
+                       command=lambda: copy_to_clipboard(encrypter_entry))
 
 cp_enc_btn.place(y=110, x=370)
 
@@ -141,7 +139,7 @@ cp_enc_btn.place(y=110, x=370)
 del_enc_btn = CTkButton(master=root, width=33, height=33,
                        corner_radius=5, bg_color='transparent',
                        fg_color='transparent', image=del_btn_img, text='',
-                       command=lambda: delete_value(encypter_entry))
+                       command=lambda: delete_value(encrypter_entry))
 
 del_enc_btn.place(y=155, x=370)
 
@@ -149,7 +147,7 @@ del_enc_btn.place(y=155, x=370)
 cp_denc_btn = CTkButton(master=root, width=33, height=33,
                        corner_radius=5, bg_color='transparent',
                        fg_color='transparent', image=cp_btn_img_d, text='',
-                       command=lambda: copy_to_clipboard(dencypter_entry))
+                       command=lambda: copy_to_clipboard(decrypter_entry))
 
 cp_denc_btn.place(y=250, x=370)
 
@@ -157,7 +155,7 @@ cp_denc_btn.place(y=250, x=370)
 del_denc_btn = CTkButton(master=root, width=33, height=33,
                        corner_radius=5, bg_color='transparent',
                        fg_color='transparent', image=del_btn_img_d, text='',
-                       command=lambda: delete_value(dencypter_entry))
+                       command=lambda: delete_value(decrypter_entry))
 
 del_denc_btn.place(y=295, x=370)
 
